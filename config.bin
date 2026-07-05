@@ -2,7 +2,7 @@
 	"spider": "https://ncstatic.clewm.net/rsrc/2026/0508/10/56d0b667615145949789418bff9f22a5.png;md5;B63A0EB8852BB7AB06500C424CCC3DAE",
 	"wallpaper": "https://yydsys.top/bg.php",
 	"logo": "https://img.cdn1.vip/i/69e0b8deadf7f_1776335070.gif",
-	"warningText": "接口完全免费，切勿贩卖购买",
+	"warningText": "接口完全免费，切勿贩卖购买，仅供测试，请于测试完毕后24小时删除",
 	"lives": [{
 		"name": "migu(优)",
 		"type": 0,
@@ -66,7 +66,7 @@
 	}],
 	"sites": [{
 			"key": "豆瓣",
-			"name": "🍥┃豆瓣┃仅供测试，请于测试完毕后24小时删除🍥",
+			"name": "🍥┃豆瓣┃仅供测试🍥",
 			"type": 3,
 			"api": "csp_Douban",
 			"searchable": 0,
