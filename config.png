@@ -369,11 +369,12 @@
 			"key": "csp_Guazi",
 			"name": "🍉┃瓜子┃影视",
 			"type": 3,
-			"api": "csp_Guazi",
+			"api": "./py/瓜子.py",
 			"searchable": 1,
-			"changeable": 1,
-			"jar": "https://ncstatic.clewm.net/rsrc/2026/0622/18/bb6ee1729c28414496add334ea3ea00a.png;md5;2C09761B17B36A3C58291EB6436C3542"
-		},
+			"quickSearch": 0,
+			"filterable": 0,
+			"changeable": 0
+		},  
 		{
 			"key": "金牌影院",
 			"name": "🏅┃金牌┃影院",
