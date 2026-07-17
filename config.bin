@@ -74,24 +74,24 @@
 			"indexs": 1,
 			"ext": "./json/douban.json"
 		},
-        {
-            "key": "leo弹幕",
-            "name": "⚙️┃弹幕┃配置",
-            "type": 3,
-            "api": "csp_DanmakuSpider",
-            "searchable": 1,
-            "jar": "https://ncstatic.clewm.net/rsrc/2026/0606/11/213bbb9695e34a42a8fb0d2deff41a89.png;md5;38F2621478442352EC0417E3D660B8D8",
-            "ext": {
-                "apiUrl": [
-          "https://dm.abai.ccwu.cc/abai|公益源1",
-          "https://dmapi.6565n.xyz/87654321|公益源2",
-          "https://dm.ljiaovm.com/luosen|公益源3"
-        ],
-                "autoPushEnabled": true,
-                "danmakuStyle": "经典模式",
-                "lpAlpha": 0.9
-            }
-        },
+		{
+			"key": "leo弹幕",
+			"name": "⚙️┃弹幕┃配置",
+			"type": 3,
+			"api": "csp_DanmakuSpider",
+			"searchable": 1,
+			"jar": "https://ncstatic.clewm.net/rsrc/2026/0606/11/213bbb9695e34a42a8fb0d2deff41a89.png;md5;38F2621478442352EC0417E3D660B8D8",
+			"ext": {
+				"apiUrl": [
+					"https://dm.abai.ccwu.cc/abai|公益源1",
+					"https://dmapi.6565n.xyz/87654321|公益源2",
+					"https://dm.ljiaovm.com/luosen|公益源3"
+				],
+				"autoPushEnabled": true,
+				"danmakuStyle": "经典模式",
+				"lpAlpha": 0.9
+			}
+		},
 		{
 			"key": "网盘配置",
 			"name": "🍭┃配置┃中心",
@@ -180,27 +180,11 @@
 			"key": "戒",
 			"name": "🐌┃视界┃秒播",
 			"type": 3,
-			"api": "./py/界.py",
+			"api": "./js/jys.js",
 			"searchable": 1,
 			"quickSearch": 0,
 			"filterable": 0,
 			"changeable": 0
-		}, {
-			"key": "山有木兮",
-			"name": "🌳┃木兮┃秒播",
-			"type": 3,
-			"api": "http://mytv6688.xyz/pyplugin/木兮.py",
-			"searchable": 1,
-			"filterable": 0,
-			"changeable": 0
-		}, {
-			"key": "nangua",
-			"name": "🎃┃南瓜┃秒播",
-			"type": 3,
-			"api": "csp_NanGua",
-			"playerType": 2,
-			"jar": "https://ncstatic.clewm.net/rsrc/2025/0725/20/318ccef14687421637f5aa0ba1021e33.png;md5;939FFBC2941A28CA533F2653FA4B449E",
-			"ext": "7lj763gg0939795i017ii486k512jkihhilg9g0h96j865740113"
 		}, {
 			"key": "橘皮",
 			"name": "🍊┃橘皮┃影视",
@@ -233,18 +217,6 @@
 				"json": "./json/video_data.json"
 			}
 		}, {
-			"key": "茉莉",
-			"name": "☸️┃魔力┃影视",
-			"type": 3,
-			"searchable": 1,
-			"api": "csp_AppGet",
-			"jar": "https://ncstatic.clewm.net/rsrc/2026/0416/12/9c6f4eee384d4e9184f7a751c4d10b16.png;md5;690CD77AEB20B09A8DD8E01DCBE660B6",
-			"ext": {
-				"site": "https://gitee.com/wmmoliill/wimg/raw/master/img/bk/9.txt",
-				"dataKey": "88689667dce61725",
-				"dataIv": "88689667dce61725"
-			}
-		}, {
 			"key": "极影",
 			"name": "⚡️┃极影┃影视",
 			"type": 3,
@@ -263,6 +235,36 @@
 			"filterable": 1,
 			"changeable": 1,
 			"playable": 1
+		},
+		{
+			"key": "枫叶影院",
+			"name": "🍁┃枫叶┃影院",
+			"type": 3,
+			"api": "./py/枫叶影院.py",
+			"searchable": 1,
+			"quickSearch": 1,
+			"filterable": 0
+		},
+		{
+			"key": "枫叶蓝光",
+			"name": "🍁┃枫叶┃蓝光",
+			"type": 3,
+			"api": "./py/枫叶蓝光.py",
+			"searchable": 1,
+			"quickSearch": 1,
+			"filterable": 0
+		},
+		{
+			"key": "枫叶4K",
+			"name": "🍁┃枫叶┃至臻",
+			"type": 3,
+			"api": "csp_XBPQ",
+			"jar": "https://ncstatic.clewm.net/rsrc/2026/0418/17/1d9136626610437ab0cac0dbe262d1ed.png;md5;4D860D06EC233DBCB891B76055F099D5",
+			"searchable": 1,
+			"quickSearch": 1,
+			"ext": {
+				"分类url": "https://www.guan-feng.com/"
+			}
 		},
 		{
 			"key": "Acfun",
@@ -334,24 +336,6 @@
 				"分类": "短剧$5#电视剧$2#电影$1#动漫$4#综艺$3"
 			}
 		}, {
-			"key": "SVIP影视",
-			"name": "💎┃VIP┃影视",
-			"type": 3,
-			"api": "csp_XBPQ",
-			"jar": "https://ncstatic.clewm.net/rsrc/2026/0418/17/1d9136626610437ab0cac0dbe262d1ed.png;md5;4D860D06EC233DBCB891B76055F099D5",
-			"ext": "./json/vip.json"
-		}, {
-			"key": "py_文才",
-			"name": "🖍️┃文才┃影视",
-			"type": 3,
-			"api": "./py/文才.py",
-			"searchable": 1,
-			"quickSearch": 1,
-			"filterable": 1,
-			"ext": {
-				"site": "https://www.hkybqufgh.com,https://www.sizhengxt.com,https://0996zp.com,https://9zhoukj.com/,https://www.sizhengxt.com,https://www.tjrongze.com,https://www.jiabaide.cn,https://cqzuoer.com"
-			}
-		}, {
 			"key": "荐片",
 			"name": "⏳┃荐片┃P2P",
 			"jar": "https://ncstatic.clewm.net/rsrc/2026/0416/12/9c6f4eee384d4e9184f7a751c4d10b16.png;md5;690CD77AEB20B09A8DD8E01DCBE660B6",
@@ -374,7 +358,7 @@
 			"quickSearch": 0,
 			"filterable": 0,
 			"changeable": 0
-		},  
+		},
 		{
 			"key": "金牌影院",
 			"name": "🏅┃金牌┃影院",
@@ -582,36 +566,7 @@
 			"ext": {
 				"site": "https://www.labi88.sbs,http://feimaoai.site,https://feimao666.fun,http://feimao888.fun"
 			}
-		}, {
-			"key": "ZXZJ",
-			"name": "🎞┃在线┃之家",
-			"api": "csp_Zxzj",
-			"type": 3,
-			"filterable": 1,
-			"quickSearch": 1,
-			"searchable": 1,
-			"playerType": 2,
-			"jar": "https://ncstatic.clewm.net/rsrc/2025/0725/20/318ccef14687421637f5aa0ba1021e33.png;md5;939FFBC2941A28CA533F2653FA4B449E",
-			"ext": "7lj763gg402i7942463j9j9jgg449698khhh845ki38473"
-		}, {
-			"key": "Lib",
-			"name": "🛎️┃立白┃影视",
-			"type": 3,
-			"api": "csp_Lib",
-			"searchable": 1,
-			"quickSearch": 1,
-			"filterable": 0,
-			"jar": "https://ncstatic.clewm.net/rsrc/2025/0725/20/318ccef14687421637f5aa0ba1021e33.png;md5;939FFBC2941A28CA533F2653FA4B449E",
-			"ext": "7lj763gg402i7942463j9j9jhi558k84lhg7845kili62l35535512l0h61j48410h9g5igk9j40908h351hh484h8l60h"
-		}, {
-			"key": "厂长",
-			"name": "🏭┃厂长┃影视",
-			"type": 3,
-			"api": "csp_Czzy",
-			"searchable": 1,
-			"quickSearch": 1,
-			"filterable": 1
-		}, {
+		},{
 			"key": "夸克盘社",
 			"name": "📀┃夸克┃盘社",
 			"type": 3,
