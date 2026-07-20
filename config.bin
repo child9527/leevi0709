@@ -79,12 +79,13 @@
 		"type": 3,
 		"api": "csp_DanmakuSpider",
 		"searchable": 1,
-		"jar": "https://ncstatic.clewm.net/rsrc/2026/0606/11/213bbb9695e34a42a8fb0d2deff41a89.png;md5;38F2621478442352EC0417E3D660B8D8",
+		"jar": "https://ncstatic.clewm.net/rsrc/2026/0720/17/a7d0606f7915430eb4482f63649d6ce2.png;md5;A543D0BFC9DEA3430A9DE1E72FD19638",
 		"ext": {
 			"apiUrl": ["https://dm.abai.ccwu.cc/abai|公益源1", "https://dmapi.6565n.xyz/87654321|公益源2", "https://dm.ljiaovm.com/luosen|公益源3"],
 			"autoPushEnabled": true,
-			"danmakuStyle": "经典模式",
-			"lpAlpha": 0.9
+            "danmakuStyle": "经典模式",
+            "proxyPort": 5575,
+            "lpAlpha": 0.9
 		}
 	}, {
 		"key": "网盘配置",
