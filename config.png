@@ -232,7 +232,13 @@
 			"filterable": 1,
 			"order_num": 0,
 			"changeable": 0
-		}, {
+		},{
+            "key": "wawa",
+            "name": "🍼┃哇哇┃影视",
+            "type": 3,
+            "api": "./py/哇哇APP.py",
+            "searchable": 1
+        },{
 			"key": "枫叶",
 			"name": "🍁┃枫叶┃影视",
 			"type": 3,
@@ -293,7 +299,28 @@
 			"type": 3,
 			"api": "https://pan.szfx.top/down.php/56ac2028f2dd8336dccad017927cbef1.py",
 			"ext": "http://43.248.117.123:4680"
-		}, {
+		},{
+            "key": "KK",
+            "name": "👌┃欧克┃影视",
+            "type": 3,
+            "api": "./py/可可影视.py",
+            "searchable": 1
+        },
+{
+            "key": "WS",
+            "name": "威视┃影视",
+            "type": 3,
+            "api": "./py/威视TV.py",
+            "searchable": 1
+        },
+		{
+            "key": "花树",
+            "name": "🌳┃花树┃影视",
+            "type": 3,
+            "api": "./py/华数TV.py",
+            "searchable": 1
+        },
+		{
 			"key": "农民",
 			"name": "🧿┃农民┃影视",
 			"type": 3,
@@ -339,7 +366,7 @@
 			"key": "csp_Guazi",
 			"name": "🍉┃瓜子┃影视",
 			"type": 3,
-			"api": "./py/瓜子.py",
+			"api": "./py/瓜子APP.py",
 			"searchable": 1,
 			"quickSearch": 0,
 			"filterable": 0,
@@ -364,7 +391,13 @@
 				"key": "guluyinghua_123",
 				"sign": "679543610991810f19698c187e5e106e"
 			}
-		}, {
+		},        {
+            "key": "hxq",
+            "name": "🌽┃韩剧┃小圈",
+            "type": 3,
+            "api": "./py/韩小圈.py",
+            "searchable": 1
+        }, {
 			"key": "韩剧看看",
 			"name": "🌽┃韩剧┃看看",
 			"type": 3,
@@ -422,10 +455,11 @@
 			"quickSearch": 0,
 			"changeable": 0
 		}, {
+		
 			"key": "聚合短剧",
 			"name": "✨┃聚合┃短剧",
 			"type": 3,
-			"api": "./js/聚合短剧.js"
+			"api": "./py/短剧聚合.py"
 		}, {
 			"key": "csp_Bili",
 			"name": "🅱️┃哔哩┃合集",
