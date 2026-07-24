@@ -308,7 +308,7 @@
         },
 {
             "key": "WS",
-            "name": "威视┃影视",
+            "name": "⚠️┃威视┃影视",
             "type": 3,
             "api": "./py/威视TV.py",
             "searchable": 1
