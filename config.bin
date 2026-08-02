@@ -81,7 +81,7 @@
 			"searchable": 1,
 			"jar": "https://ncstatic.clewm.net/rsrc/2026/0720/17/a7d0606f7915430eb4482f63649d6ce2.png;md5;A543D0BFC9DEA3430A9DE1E72FD19638",
 			"ext": {
-				"apiUrl": ["https://danmu.longemby.com/lilyemby|公益源1", "https://dm.660505.xyz:8443/a123456|公益源2", "https://dm.ljiaovm.com/luosen|公益源3", "https://dandan.wenjian.de/wenjian|公益源4", "https://justdanmu.irisnb.com/iris-danmu|公益源5", "https://danmu.iyo.us.ci/theft-dastardly-prognosis-hula-agenda2-dropkick|公益源6", "https://88920.dpdns.org/********|公益源7"],
+				"apiUrl": ["https://danmu.longemby.com/lilyemby|公益源1", "https://dm.660505.xyz:8443/a123456|公益源2", "https://dm.ljiaovm.com/luosen|公益源3", "https://dandan.wenjian.de/wenjian|公益源4", "https://justdanmu.irisnb.com/iris-danmu|公益源5", "https://danmu.iyo.us.ci/theft-dastardly-prognosis-hula-agenda2-dropkick|公益源6", "https://88920.dpdns.org|公益源7"],
 				"autoPushEnabled": true,
 				"danmakuStyle": "经典模式",
 				"proxyPort": 5575,
