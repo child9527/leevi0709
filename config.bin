@@ -10,18 +10,6 @@
 		"timeout": 10,
 		"playerType": 2
 	}, {
-		"name": "电S家",
-		"type": 0,
-		"url": "https://dsj-1312694395.cos.ap-guangzhou.myqcloud.com/dsj10.1.txt",
-		"timeout": 10,
-		"playerType": 2
-	}, {
-		"name": "migu",
-		"type": 0,
-		"url": "https://migu.heropx.dpdns.org/",
-		"timeout": 10,
-		"playerType": 2
-	}, {
 		"name": "iptv(简)",
 		"type": 0,
 		"url": "https://im5k.fun/vip.m3u",
@@ -74,20 +62,18 @@
 			"indexs": 1,
 			"ext": "./json/douban.json"
 		}, {
-			"key": "leo弹幕",
+			"key": "小白弹幕",
 			"name": "⚙️┃弹幕┃配置",
 			"type": 3,
-			"api": "csp_DanmakuSpider",
-			"searchable": 1,
-			"jar": "https://ncstatic.clewm.net/rsrc/2026/0720/17/a7d0606f7915430eb4482f63649d6ce2.png;md5;A543D0BFC9DEA3430A9DE1E72FD19638",
+			"api": "csp_SecureDanmu",
+			"jar": "https://ncstatic.clewm.net/rsrc/2026/0807/12/c540eb4719b24fb9bea28987527b5152.png;md5;38C9C3FBDEB7B247892353C6C0139735",
+			"index": 1,
 			"ext": {
-				"apiUrl": ["https://danmu.longemby.com/lilyemby|公益源1", "https://dm.660505.xyz:8443/a123456|公益源2", "https://dm.ljiaovm.com/luosen|公益源3", "https://dandan.wenjian.de/wenjian|公益源4", "https://justdanmu.irisnb.com/iris-danmu|公益源5", "https://danmu.iyo.us.ci/theft-dastardly-prognosis-hula-agenda2-dropkick|公益源6", "https://88920.dpdns.org|公益源7"],
-				"autoPushEnabled": true,
-				"danmakuStyle": "经典模式",
-				"proxyPort": 5575,
-				"lpAlpha": 0.9
+				"apiUrls": ["https://danmu.longemby.com/lilyemby|公益源1", "https://dm.ljiaovm.com/luosen|公益源2", "https://dandan.wenjian.de/wenjian|公益源3", "https://justdanmu.irisnb.com/iris-danmu|公益源4", "https://danmu.iyo.us.ci/theft-dastardly-prognosis-hula-agenda2-dropkick|公益源5"],
+				"titleMappingsUrl": "https://gh-proxy.com/https://raw.githubusercontent.com/goodcommunication/mydm/main/yins.json"
 			}
-		}, {
+		},
+		{
 			"key": "网盘配置",
 			"name": "🍭┃配置┃中心",
 			"type": 3,
@@ -142,6 +128,47 @@
 			"timeout": 30,
 			"ext": {
 				"site": "https://tv.yydsys.top,https://tv.yydsys.cc,https://tv.214521.xyz,https://yydsys.us.ci,https://yydsys.de5.net"
+			}
+		}, {
+			"key": "歪比巴卜",
+			"name": "👽︎┃歪比┃巴卜",
+			"type": 3,
+			"playerType": 2,
+			"api": "https://gh-proxy.com/https://raw.githubusercontent.com/IY-CPU/IY/main/lib/yb.js"
+		}, {
+			"key": "夜莺",
+			"name": "🐤┃夜莺┃影视",
+			"type": 3,
+			"api": "https://fastlink.cokey.xyz/f/nLaNhm/get.js",
+			"ext": {
+				"host": "http://222.211.75.252:16118",
+				"key": "0UKM8jkasM8tdzgW",
+				"init": "V122",
+				"api": 2,
+				"ua": "okhttp/3.10.0"
+			},
+			"categories": [
+				"动漫",
+				"电视剧",
+				"电影",
+				"综艺",
+				"短剧",
+				"体育",
+				"少儿",
+				"纪录片"
+			]
+		},
+		{
+			"key": "星河",
+			"name": "🌌┃星河┃影视",
+			"type": 3,
+			"api": "https://fastlink.cokey.xyz/f/nLaNhm/get.js",
+			"ext": {
+				"host": "http://110.42.67.130:1226",
+				"key": "kj37zs29q22jk96t",
+				"init": "V122",
+				"api": 2,
+				"ua": "okhttp/3.10.0"
 			}
 		}, {
 			"key": "养生堂",
