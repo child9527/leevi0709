@@ -30,6 +30,7 @@ jobs:
         run: |
           UPSTREAM_HASH=$(cd upstream_repo && git rev-parse HEAD)
           echo "上游仓库最新 Commit: ${UPSTREAM_HASH}"
+          echo "latest_hash=${UPSTREAM_HASH}" >> $GITHUB_OUTPUT
 
           LOCAL_RECORDED_HASH=""
           if [ -f "main_repo/.upstream_commit" ]; then
@@ -39,43 +40,40 @@ jobs:
 
           if [ "$UPSTREAM_HASH" = "$LOCAL_RECORDED_HASH" ]; then
             echo "=========================================="
-            echo "提示：上游仓库未检测到任何更新，本次任务结束。"
+            echo "提示：上游仓库未检测到更新，准备直接执行加密流程..."
             echo "=========================================="
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
             echo "=========================================="
-            echo "检测到上游仓库有新 Commit，开始进行同步与加密..."
+            echo "检测到上游仓库有新 Commit，将先同步上游文件再加密..."
             echo "=========================================="
             echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "latest_hash=${UPSTREAM_HASH}" >> $GITHUB_OUTPUT
           fi
 
       - name: 镜像同步文件
         if: steps.check_upstream.outputs.has_changes == 'true'
         run: |
-          echo "开始使用 rsync 同步上游文件..."
+          echo "开始使用 rsync 同步上游文件（已排除本地私有与生成文件）..."
           rsync -av --delete \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='py/tvbox.py' \
+            --exclude='config.json' \
             --exclude='.upstream_commit' \
             upstream_repo/ main_repo/
 
       - name: 配置 Python 环境
-        if: steps.check_upstream.outputs.has_changes == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
       - name: 安装 Python 依赖库
-        if: steps.check_upstream.outputs.has_changes == 'true'
         run: |
           python -m pip install --upgrade pip
           pip install pycryptodome
 
       - name: 执行配置文件加密
         id: encrypt_step
-        if: steps.check_upstream.outputs.has_changes == 'true'
         run: |
           cd main_repo
 
@@ -86,7 +84,7 @@ jobs:
             echo "encrypt_ok=false" >> $GITHUB_OUTPUT
           else
             if python py/tvbox.py config.bin config.json enc; then
-              echo "加密完成，已生成 config.json。"
+              echo "加密完成，已成功生成/更新 config.json。"
               echo "encrypt_ok=true" >> $GITHUB_OUTPUT
             else
               echo "::warning::警告：加密脚本运行失败！"
@@ -95,12 +93,13 @@ jobs:
           fi
 
       - name: 提交并推送到 GitHub
-        if: steps.check_upstream.outputs.has_changes == 'true'
         run: |
           cd main_repo
 
-          # 永远更新上游 Commit 记录，避免死循环
-          echo "${{ steps.check_upstream.outputs.latest_hash }}" > .upstream_commit
+          # 如果上游有更新，记录最新的 Commit Hash
+          if [ "${{ steps.check_upstream.outputs.has_changes }}" = "true" ]; then
+            echo "${{ steps.check_upstream.outputs.latest_hash }}" > .upstream_commit
+          fi
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -112,9 +111,13 @@ jobs:
           else
             if [ "${{ steps.encrypt_step.outputs.encrypt_ok }}" = "false" ]; then
               echo "警告：加密失败，但仍提交同步内容与 Commit 记录。"
-              git commit -m "同步上游更新 [${{ steps.check_upstream.outputs.latest_hash }}] —— ⚠️ 加密失败"
+              git commit -m "自动同步更新 [$(date -u +'%Y-%m-%d %H:%M:%S UTC')] —— ⚠️ 加密失败"
             else
-              git commit -m "同步上游更新 [${{ steps.check_upstream.outputs.latest_hash }}] 并成功加密 config.bin"
+              if [ "${{ steps.check_upstream.outputs.has_changes }}" = "true" ]; then
+                git commit -m "同步上游更新 [${{ steps.check_upstream.outputs.latest_hash }}] 并成功加密 config.bin"
+              else
+                git commit -m "重新加密 config.bin 生成 config.json [$(date -u +'%Y-%m-%d %H:%M:%S UTC')]"
+              fi
             fi
 
             git push
