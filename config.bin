@@ -133,6 +133,12 @@
 				"site": "https://tv.yydsys.top,https://tv.yydsys.cc,https://tv.214521.xyz,https://yydsys.us.ci,https://yydsys.de5.net"
 			}
 		}, {
+			"key": "大马猴",
+			"name": "🐒┃马猴┃影视",
+			"type": 3,
+			"api": "./py/马猴.py",
+			"searchable": 1
+		},{
 			"key": "歪比巴卜",
 			"name": "👽︎┃歪比┃巴卜",
 			"type": 3,
