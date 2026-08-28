@@ -1,4 +1,4 @@
-name: Leevi0709每日同步与加密工作流
+name: Leevi0709每日同步与加密工作流（Git Tag 版本）
 
 on:
   schedule:
@@ -18,44 +18,39 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: main_repo
-          fetch-depth: 1
+          fetch-depth: 0   # 必须为 0 才能读取 tag
 
       - name: 克隆上游源仓库
         run: |
           echo "正在浅层克隆上游仓库 leevi0709/one ..."
           git clone --depth 1 https://github.com/leevi0709/one.git upstream_repo
 
-      - name: 精准检测上游 Commit Hash 与本地文件状态
+      - name: 精准检测上游 Commit Hash 与本地 Tag 状态
         id: check_status
         run: |
-          UPSTREAM_HASH=$(cd upstream_repo && git rev-parse HEAD)
+          cd upstream_repo
+          UPSTREAM_HASH=$(git rev-parse HEAD)
           echo "上游仓库最新 Commit: ${UPSTREAM_HASH}"
           echo "latest_hash=${UPSTREAM_HASH}" >> $GITHUB_OUTPUT
 
-          LOCAL_RECORDED_HASH=""
-          if [ -f "main_repo/.upstream_commit" ]; then
-            LOCAL_RECORDED_HASH=$(cat main_repo/.upstream_commit)
-          fi
-          echo "本地记录的上一次 Commit: ${LOCAL_RECORDED_HASH}"
+          cd ../main_repo
 
-          if [ "$UPSTREAM_HASH" != "$LOCAL_RECORDED_HASH" ]; then
-            echo "=========================================="
-            echo "检测到上游仓库有新 Commit，需要同步并加密。"
-            echo "=========================================="
+          # 读取本地 tag（如果不存在则为空）
+          LOCAL_TAG_HASH=$(git rev-parse refs/tags/upstream-sync 2>/dev/null || echo "")
+          echo "本地记录的上一次同步 Commit: ${LOCAL_TAG_HASH}"
+
+          if [ "$UPSTREAM_HASH" != "$LOCAL_TAG_HASH" ]; then
+            echo "检测到上游有更新，需要同步并加密。"
             echo "need_process=true" >> $GITHUB_OUTPUT
             echo "has_upstream_changes=true" >> $GITHUB_OUTPUT
           else
             echo "提示：上游仓库未检测到更新。"
-            if [ -f "main_repo/config.json" ]; then
-              echo "=========================================="
-              echo "提示：本地已存在 config.json，无需额外处理，结束工作流。"
-              echo "=========================================="
+            if [ -f "config.json" ]; then
+              echo "本地已存在 config.json，无需处理。"
               echo "need_process=false" >> $GITHUB_OUTPUT
               echo "has_upstream_changes=false" >> $GITHUB_OUTPUT
             else
-              echo "=========================================="
-              echo "警告：本地缺失 config.json，准备触发补全加密..."
-              echo "=========================================="
+              echo "警告：本地缺失 config.json，需要补全加密。"
               echo "need_process=true" >> $GITHUB_OUTPUT
               echo "has_upstream_changes=false" >> $GITHUB_OUTPUT
             fi
@@ -64,13 +59,12 @@ jobs:
       - name: 镜像同步文件
         if: steps.check_status.outputs.has_upstream_changes == 'true'
         run: |
-          echo "开始使用 rsync 同步上游文件（已排除本地私有与生成文件）..."
+          echo "开始使用 rsync 同步上游文件..."
           rsync -av --delete \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='py/tvbox.py' \
             --exclude='config.json' \
-            --exclude='.upstream_commit' \
             upstream_repo/ main_repo/
 
       - name: 配置 Python 环境
@@ -98,7 +92,7 @@ jobs:
             echo "encrypt_ok=false" >> $GITHUB_OUTPUT
           else
             if python py/tvbox.py config.bin config.json enc; then
-              echo "加密完成，已成功生成/更新 config.json。"
+              echo "加密完成，已成功生成 config.json。"
               echo "encrypt_ok=true" >> $GITHUB_OUTPUT
             else
               echo "::warning::警告：加密脚本运行失败！"
@@ -106,18 +100,12 @@ jobs:
             fi
           fi
 
-      - name: 提交并推送到 GitHub
+      - name: 提交并推送到 GitHub（含更新 tag）
         if: steps.check_status.outputs.need_process == 'true'
         run: |
           cd main_repo
 
-          # 生成中国时间
           CN_TIME=$(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M CST')
-
-          # 如果上游有更新，记录最新的 Commit Hash
-          if [ "${{ steps.check_status.outputs.has_upstream_changes }}" = "true" ]; then
-            echo "${{ steps.check_status.outputs.latest_hash }}" > .upstream_commit
-          fi
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -127,13 +115,16 @@ jobs:
           if git diff --staged --quiet; then
             echo "提示：最终文件没有变化，跳过提交。"
           else
-            # 统一提交信息格式：更新于 年-月-日 时:分 CST
             if [ "${{ steps.encrypt_step.outputs.encrypt_ok }}" = "false" ]; then
               git commit -m "更新于 ${CN_TIME} —— ⚠️ 加密失败"
             else
               git commit -m "更新于 ${CN_TIME}"
             fi
-
-            git push
-            echo "推送完成。"
           fi
+
+          # 更新 tag（记录上游最新 commit）
+          git tag -f upstream-sync ${{ steps.check_status.outputs.latest_hash }}
+          git push -f origin upstream-sync
+
+          git push
+          echo "推送完成。"
