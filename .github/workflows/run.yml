@@ -116,15 +116,14 @@ jobs:
             echo "提示：最终文件没有变化，跳过提交。"
           else
             if [ "${{ steps.encrypt_step.outputs.encrypt_ok }}" = "false" ]; then
-              git commit -m "更新于 ${CN_TIME} —— ⚠️ 加密失败"
+              git commit -m "更新于 ${CN_TIME} —— ⚠️ 加密失败 [skip ci]"
             else
-              git commit -m "更新于 ${CN_TIME}"
+              git commit -m "更新于 ${CN_TIME} [skip ci]"
             fi
+            
+            # 只有在产生新 Commit 时才强行更新 Tag 并推送
+            git tag -f upstream-sync ${{ steps.check_status.outputs.latest_hash }}
+            git push -f origin upstream-sync
+            git push
+            echo "推送完成。"
           fi
-
-          # 更新 tag（记录上游最新 commit）
-          git tag -f upstream-sync ${{ steps.check_status.outputs.latest_hash }}
-          git push -f origin upstream-sync
-
-          git push
-          echo "推送完成。"
