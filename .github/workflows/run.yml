@@ -106,24 +106,28 @@ jobs:
           cd main_repo
 
           CN_TIME=$(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M CST')
+          UPSTREAM_HASH="${{ steps.check_status.outputs.latest_hash }}"
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git add .
 
-          if git diff --staged --quiet; then
-            echo "提示：最终文件没有变化，跳过提交。"
+          # 判断是否有文件变更
+              if ! git diff --staged --quiet; then
+          if [ "${{ steps.encrypt_step.outputs.encrypt_ok }}" = "false" ]; then
+            git commit -m "更新于 ${CN_TIME} —— ⚠️ 加密失败 | 上游: ${UPSTREAM_HASH} [skip ci]"
           else
-            if [ "${{ steps.encrypt_step.outputs.encrypt_ok }}" = "false" ]; then
-              git commit -m "更新于 ${CN_TIME} —— ⚠️ 加密失败 [skip ci]"
-            else
-              git commit -m "更新于 ${CN_TIME} [skip ci]"
-            fi
-            
-            # 只有在产生新 Commit 时才强行更新 Tag 并推送
-            git tag -f upstream-sync ${{ steps.check_status.outputs.latest_hash }}
-            git push -f origin upstream-sync
-            git push
-            echo "推送完成。"
+            git commit -m "更新于 ${CN_TIME} | 上游: ${UPSTREAM_HASH} [skip ci]"
           fi
+          # 推送分支代码
+          git push
+          else
+          echo "提示：最终文件无变更，跳过 Commit，仅更新 Tag。"
+          fi
+
+          # 无论是否有文件变更，只要处理了，就更新 Tag 指向当前最新 HEAD，并写入上游 Hash
+          git tag -f -a upstream-sync -m "Upstream commit: ${UPSTREAM_HASH}"
+          git push origin -f upstream-sync
+
+          echo "推送及 Tag 更新完成。"
